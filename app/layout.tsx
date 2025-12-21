@@ -15,26 +15,26 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://thwahir.online"),
   title: {
-    default: "Thwahir | Full Stack Developer",
-    template: "%s | Thwahir"
+    default: "Thwahir Pv | Full Stack Developer",
+    template: "%s | Thwahir Pv"
   },
-  description: "Portfolio of Thwahir, a Full Stack Developer specializing in building modern web applications with Next.js, React, and Node.js.",
-  keywords: ["Full Stack Developer", "Next.js", "React", "TypeScript", "Web Development", "Thwahir", "Software Engineer"],
-  authors: [{ name: "Thwahir" }],
-  creator: "Thwahir",
+  description: "Portfolio of Thwahir Pv, a Full Stack Developer specializing in building modern web applications with Next.js, React, and Node.js.",
+  keywords: ["Full Stack Developer", "Next.js", "React", "TypeScript", "Web Development", "Thwahir Pv", "Software Engineer", "Python", "Django", "Node.js"],
+  authors: [{ name: "Thwahir Pv" }],
+  creator: "Thwahir Pv",
   openGraph: {
-    title: "Thwahir | Full Stack Developer",
-    description: "Portfolio of Thwahir, a Full Stack Developer specializing in building modern web applications.",
+    title: "Thwahir Pv | Full Stack Developer",
+    description: "Portfolio of Thwahir Pv, a Full Stack Developer specializing in building modern web applications.",
     url: "https://thwahir.online",
-    siteName: "Thwahir Portfolio",
+    siteName: "Thwahir Pv Portfolio",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Thwahir | Full Stack Developer",
-    description: "Portfolio of Thwahir, a Full Stack Developer specializing in building modern web applications.",
-    creator: "@thwahir", 
+    title: "Thwahir Pv | Full Stack Developer",
+    description: "Portfolio of Thwahir Pv, a Full Stack Developer specializing in building modern web applications.",
+    creator: "@thwahirpv", 
   },
   robots: {
     index: true,
@@ -52,10 +52,10 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Thwahir",
+  name: "Thwahir Pv",
   url: "https://thwahir.online",
   jobTitle: "Full Stack Developer",
-  knowsAbout: ["Next.js", "React", "TypeScript", "Node.js", "Database Design"],
+  knowsAbout: ["Next.js", "React", "TypeScript", "Node.js", "Python", "Django", "Node.js", "Web Development", "Thwahir Pv", "Software Engineer", "Python", "Django"],
   description: "Full Stack Developer specializing in modern web technologies.",
 };
 

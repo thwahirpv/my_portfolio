@@ -53,7 +53,7 @@ function HomeContentInner({ profile, children }: HomeContentProps) {
         {children}
         
         {/* Footer */}
-        <footer id="footer" className="py-12 mt-20 text-center text-zinc-600 text-sm border-t border-white/5">
+        <footer id="footer" className="py-12 mt- text-center text-zinc-600 text-sm border-t border-white/5">
           <p>© {new Date().getFullYear()} {profile?.name || 'Thwahir PV'}. All rights reserved.</p>
         </footer>
       </motion.div>

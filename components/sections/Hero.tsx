@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Github, Linkedin, Instagram } from 'lucide-react';
 import { useLoader } from '@/components/layout/LoaderContext';
+import { div } from 'framer-motion/client';
 
 const TypingEffect = ({ text }: { text: string }) => {
   const [index, setIndex] = useState(0);
@@ -82,16 +83,28 @@ export default function Hero({ profile }: { profile: ProfileData | null }) {
             <TypingEffect text={position} />
           </div>
 
-          <p className="text-md md:text-xl leading-[1.8] text-zinc-400 font-light tracking-wide max-w-2xl mb-12">
+          <p className="text-md md:text-lg leading-[1.8] text-zinc-400 font-light tracking-wide max-w-2xl mb-12">
             {description}
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 mb-16">
-            <Link href="#projects">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-sm font-medium cursor-pointer rounded-full shadow-lg shadow-blue-900/30 transition-all hover:scale-105 active:scale-95">
-                View My Work
-              </Button>
-            </Link>
+          <div className="flex flex-wrap gap-4 mb-12 justify-center">
+            {profile?.resumeUrl ? (
+              <Link 
+                href={`/api/download?url=${encodeURIComponent(profile.resumeUrl)}&filename=thwahirpv.${profile.resumeUrl.split('.').pop()}`}
+                target="_self"
+              >
+                <Button className="bg-blue-600 hover:bg-blue-700 text-sm font-medium cursor-pointer rounded-full shadow-lg shadow-blue-900/30 transition-all hover:scale-105 active:scale-95">
+                  Download CV
+                </Button>
+              </Link>
+            ) : (
+              <Link href="#projects">
+                <Button className="bg-blue-600 hover:bg-blue-700 text-sm font-medium cursor-pointer rounded-full shadow-lg shadow-blue-900/30 transition-all hover:scale-105 active:scale-95">
+                  View My Work
+                </Button>
+              </Link>
+            )
+          }
             <Link href="#contact">
               <Button variant="outline" className="border-zinc-800 text-sm font-medium cursor-pointer rounded-full hover:bg-white hover:text-black transition-all hover:scale-105 active:scale-95">
                 Contact Me
@@ -101,13 +114,13 @@ export default function Hero({ profile }: { profile: ProfileData | null }) {
 
           {/* Social Icons */}
           <div className="flex items-center gap-8 px-8 py-3 bg-white/5 backdrop-blur-md rounded-full border border-white/10">
-            <Link href="https://github.com" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-all transform hover:scale-125">
+            <Link href="https://github.com/thwahirpv" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-all transform hover:scale-125">
               <Github size={22} />
             </Link>
-            <Link href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-blue-400 transition-all transform hover:scale-125">
+            <Link href="https://www.linkedin.com/in/thwahirpv" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-blue-400 transition-all transform hover:scale-125">
               <Linkedin size={22} />
             </Link>
-            <Link href="https://instagram.com" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-pink-400 transition-all transform hover:scale-125">
+            <Link href="https://www.instagram.com/thwahirpv_" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-pink-400 transition-all transform hover:scale-125">
               <Instagram size={22} />
             </Link>
           </div>

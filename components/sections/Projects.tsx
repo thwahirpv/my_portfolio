@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight, Github } from 'lucide-react';
 import * as motion from 'framer-motion/client';
+import ProjectCardImage from './ProjectCardImage';
 
 export default async function Projects() {
   const projects = await getProjects();
@@ -49,29 +50,25 @@ export default async function Projects() {
 
                {/* Image Wrapper with Scale Effect */}
                <div className="relative h-60 w-full overflow-hidden">
-                 {project.imageUrl ? (
-                    <Image 
-                      src={project.imageUrl} 
-                      alt={project.title} 
-                      fill 
-                      className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                    />
-                 ) : (
-                    <div className="w-full h-full bg-zinc-900/50 flex items-center justify-center text-zinc-700">No Preview</div>
-                 )}
+                 <ProjectCardImage 
+                    title={project.title}
+                    imageUrl={project.imageUrl}
+                    imageUrl2={project.imageUrl2}
+                    imageUrl3={project.imageUrl3}
+                 />
                  
                  {/* Overlay */}
                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-4 backdrop-blur-sm z-20">
                     {project.liveDemoUrl && (
                         <Link href={project.liveDemoUrl} target="_blank">
-                             <Button size="icon" className="rounded-full bg-white text-black hover:bg-zinc-200 w-10 h-10">
+                             <Button size="icon" className="rounded-full bg-white cursor-pointer text-black hover:bg-zinc-200 w-10 h-10">
                                 <ArrowUpRight size={18} />
                              </Button>
                         </Link>
                     )}
                     {project.repoUrl && (
                         <Link href={project.repoUrl} target="_blank">
-                             <Button size="icon" variant="outline" className="rounded-full border-white/20 text-white hover:bg-white/10 w-10 h-10 backdrop-blur-sm">
+                             <Button size="icon" variant="outline" className="rounded-full cursor-pointer border-white/20 text-white hover:bg-white/10 w-10 h-10 backdrop-blur-sm">
                                 <Github size={18} />
                              </Button>
                         </Link>

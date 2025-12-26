@@ -51,6 +51,25 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
         formData.set('avatarUrl', initialData.avatarUrl);
       }
 
+      // Handle Resume Upload
+      const resumeFile = formData.get('resume') as File;
+      if (resumeFile && resumeFile.size > 0) {
+        const uploadFormData = new FormData();
+        uploadFormData.append('file', resumeFile);
+        uploadFormData.append('customName', 'thwahirpv');
+        
+        const uploadRes = await uploadFile(uploadFormData);
+        if (uploadRes.success && uploadRes.url) {
+            formData.set('resumeUrl', uploadRes.url);
+        } else {
+             toast.error('Resume upload failed: ' + uploadRes.error);
+             setLoading(false);
+             return;
+        }
+      } else if (initialData?.resumeUrl) {
+         formData.set('resumeUrl', initialData.resumeUrl);
+      }
+
       const res = await updateProfile(formData);
       if (res.success) {
         toast.success('Profile updated successfully!');
@@ -152,15 +171,23 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="resumeUrl">Resume URL (Google Drive / PDF Link)</Label>
-              <Input 
-                id="resumeUrl" 
-                name="resumeUrl" 
-                defaultValue={initialData?.resumeUrl || ''} 
-                placeholder="https://..."
-                className="bg-black border-zinc-800"
-              />
+            <div className="space-y-4">
+              <Label htmlFor="resume">Resume (PDF / Word)</Label>
+              <div className="flex flex-col gap-2">
+                 {initialData?.resumeUrl && (
+                     <a href={initialData.resumeUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:underline break-all">
+                       Current Resume: {initialData.resumeUrl.split('/').pop()}
+                     </a>
+                 )}
+                 <Input 
+                   type="file" 
+                   id="resume"
+                   name="resume" 
+                   accept=".pdf,.doc,.docx"
+                   className="cursor-pointer bg-black border-zinc-800 file:text-white"
+                 />
+                 <input type="hidden" name="resumeUrl" value={initialData?.resumeUrl || ''} />
+              </div>
             </div>
             
             <Button disabled={loading} type="submit" className="w-full mt-4 bg-blue-600 hover:bg-blue-700 cursor-pointer">

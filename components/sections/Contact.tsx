@@ -37,7 +37,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="pt-40 pb-32 relative overflow-hidden scroll-mt-32">
+    <section id="contact" className="py-32 relative overflow-hidden">
       {/* Subtle Background Accent */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
       
@@ -136,7 +136,7 @@ export default function Contact() {
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="bg-blue-600 hover:bg-blue-700 text-xs font-bold uppercase tracking-[0.2rem] rounded-full shadow-lg shadow-blue-900/30 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+                  className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-xs font-bold uppercase tracking-[0.2rem] rounded-full shadow-lg shadow-blue-900/30 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <motion.div
@@ -160,8 +160,6 @@ export default function Contact() {
           </motion.div>
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
     </section>
   );
 }

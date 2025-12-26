@@ -3,11 +3,10 @@ import { notFound } from 'next/navigation';
 import { db } from '@/db/drizzle';
 import { projects } from '@/db/schema';
 import { eq } from 'drizzle-orm';
-import Image from 'next/image';
+import ProjectGallery from '@/components/sections/ProjectGallery';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
-import Navbar from '@/components/layout/Navbar';
 
 export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -19,10 +18,16 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
     notFound();
   }
 
+  // Gather all valid images
+  const galleryImages = [
+    project.imageUrl,
+    project.imageUrl2,
+    project.imageUrl3
+  ].filter(Boolean) as string[];
+
   return (
     <>
-      <Navbar />
-      <article className="min-h-screen bg-black pt-24 pb-12">
+      <article className="min-h-screen bg-black pt-6 pb-12">
       <div className="container mx-auto px-6 max-w-4xl">
         <Link href="/#projects">
           <Button variant="ghost" className="text-zinc-400 hover:text-white mb-8 pl-0 hover:bg-transparent">
@@ -41,12 +46,8 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
             ))}
         </div>
 
-        <div className="relative w-full h-[300px] md:h-[500px] rounded-2xl overflow-hidden mb-12 border border-zinc-800">
-           {project.imageUrl ? (
-              <Image src={project.imageUrl} alt={project.title} fill className="object-cover" priority />
-           ) : (
-              <div className="w-full h-full bg-zinc-900 flex items-center justify-center text-zinc-600">No Image</div>
-           )}
+        <div className="relative w-full h-[300px] md:h-[500px] rounded-2xl overflow-hidden mb-12 border border-zinc-800 bg-zinc-900/50">
+           <ProjectGallery images={galleryImages} title={project.title} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -61,7 +62,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
                     <div className="space-y-3">
                         {project.liveDemoUrl && (
                             <Link href={project.liveDemoUrl} target="_blank" className="block">
-                                <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                                <Button className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-sm font-medium rounded-full shadow-lg shadow-blue-900/30 transition-all hover:scale-105 active:scale-95">
                                     <ExternalLink size={18} className="mr-2" />
                                     Live Demo
                                 </Button>
@@ -69,7 +70,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
                         )}
                         {project.repoUrl && (
                             <Link href={project.repoUrl} target="_blank" className="block">
-                                <Button variant="outline" className="w-full border-zinc-700 text-white hover:bg-zinc-800">
+                                <Button variant="outline" className="w-full border-zinc-700 cursor-pointer text-white hover:bg-white hover:text-black text-sm font-medium rounded-full transition-all hover:scale-105 active:scale-95">
                                     <Github size={18} className="mr-2" />
                                     Source Code
                                 </Button>

@@ -24,6 +24,8 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const [file2, setFile2] = useState<File | null>(null);
+  const [file3, setFile3] = useState<File | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,37 +34,52 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
     try {
       const formData = new FormData(e.currentTarget);
       let imageUrl = initialData?.imageUrl || '';
+      let imageUrl2 = initialData?.imageUrl2 || '';
+      let imageUrl3 = initialData?.imageUrl3 || '';
 
+      // Upload Image 1 (Required for new)
       if (file) {
         const uploadData = new FormData();
         uploadData.append('file', file);
         const uploadRes = await uploadFile(uploadData);
-        if (uploadRes.success && uploadRes.url) {
-          imageUrl = uploadRes.url;
-        } else {
-          alert('Image upload failed');
-          setLoading(false);
-          return;
-        }
+        if (uploadRes.success && uploadRes.url) imageUrl = uploadRes.url;
+        else throw new Error('Image 1 upload failed');
+      }
+
+      // Upload Image 2 (Optional)
+      if (file2) {
+        const uploadData = new FormData();
+        uploadData.append('file', file2);
+        const uploadRes = await uploadFile(uploadData);
+        if (uploadRes.success && uploadRes.url) imageUrl2 = uploadRes.url;
+        else throw new Error('Image 2 upload failed');
+      }
+
+      // Upload Image 3 (Optional)
+      if (file3) {
+        const uploadData = new FormData();
+        uploadData.append('file', file3);
+        const uploadRes = await uploadFile(uploadData);
+        if (uploadRes.success && uploadRes.url) imageUrl3 = uploadRes.url;
+        else throw new Error('Image 3 upload failed');
       }
 
       if (isEditing && initialData) {
-        await updateProject(initialData.id, formData, imageUrl);
+        await updateProject(initialData.id, formData, imageUrl, imageUrl2, imageUrl3);
       } else {
         if (!file && !imageUrl) {
-          // If editing and no new file, imageUrl persists. New project needs file.
-          alert('Please upload an image for new projects');
+          alert('Please upload the main cover image');
           setLoading(false);
           return;
         }
-        await createProject(formData, imageUrl);
+        await createProject(formData, imageUrl, imageUrl2, imageUrl3);
       }
 
       router.push('/admin/projects');
       router.refresh();
     } catch (error) {
       console.error(error);
-      alert('Something went wrong');
+      alert('Something went wrong or upload failed');
     } finally {
       setLoading(false);
     }
@@ -125,18 +142,48 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="image">Cover Image</Label>
-            <Input 
-              id="image" 
-              type="file" 
-              accept="image/*"
-              onChange={(e) => setFile(e.target.files?.[0] || null)}
-              className="bg-zinc-800 border-zinc-700 cursor-pointer" 
-            />
-            {initialData?.imageUrl && (
-              <p className="text-xs text-zinc-500">Current: {initialData.imageUrl}</p>
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+             <div className="space-y-2">
+                <Label htmlFor="image">Cover Image (Required)</Label>
+                <Input 
+                  id="image" 
+                  type="file" 
+                  accept="image/*"
+                  onChange={(e) => setFile(e.target.files?.[0] || null)}
+                  className="bg-zinc-800 border-zinc-700 cursor-pointer" 
+                />
+                {initialData?.imageUrl && (
+                  <p className="text-xs text-zinc-500 truncate">Current: {initialData.imageUrl.split('/').pop()}</p>
+                )}
+             </div>
+
+             <div className="space-y-2">
+                <Label htmlFor="image2">Image 2 (Optional)</Label>
+                <Input 
+                  id="image2" 
+                  type="file" 
+                  accept="image/*"
+                  onChange={(e) => setFile2(e.target.files?.[0] || null)}
+                  className="bg-zinc-800 border-zinc-700 cursor-pointer" 
+                />
+                {initialData?.imageUrl2 && (
+                  <p className="text-xs text-zinc-500 truncate">Current: {initialData.imageUrl2.split('/').pop()}</p>
+                )}
+             </div>
+
+             <div className="space-y-2">
+                <Label htmlFor="image3">Image 3 (Optional)</Label>
+                <Input 
+                  id="image3" 
+                  type="file" 
+                  accept="image/*"
+                  onChange={(e) => setFile3(e.target.files?.[0] || null)}
+                  className="bg-zinc-800 border-zinc-700 cursor-pointer" 
+                />
+                {initialData?.imageUrl3 && (
+                  <p className="text-xs text-zinc-500 truncate">Current: {initialData.imageUrl3.split('/').pop()}</p>
+                )}
+             </div>
           </div>
 
             <Button disabled={loading} type="submit" className="bg-blue-600 hover:bg-blue-700 w-full cursor-pointer">

@@ -10,7 +10,8 @@ export async function uploadFile(formData: FormData) {
     }
 
     try {
-        const result = await uploadImage(file, 'uploads');
+        const customName = formData.get('customName') as string | undefined;
+        const result = await uploadImage(file, 'uploads', customName);
         return { success: true, url: result.secure_url };
     } catch (error) {
         console.error('Upload failed:', error);

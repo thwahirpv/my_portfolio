@@ -112,7 +112,7 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="liveDemoUrl">Live Demo URL</Label>
+              <Label htmlFor="liveDemoUrl">Live Demo URL (User Side)</Label>
               <Input 
                 id="liveDemoUrl" 
                 name="liveDemoUrl" 
@@ -121,11 +121,29 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="repoUrl">Repository URL</Label>
+              <Label htmlFor="adminDemoUrl">Live Demo URL (Admin Side - Optional)</Label>
+              <Input 
+                id="adminDemoUrl" 
+                name="adminDemoUrl" 
+                defaultValue={initialData?.adminDemoUrl ?? ''} 
+                className="bg-zinc-800 border-zinc-700" 
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="repoUrl">Frontend / Main Repo URL</Label>
               <Input 
                 id="repoUrl" 
                 name="repoUrl" 
                 defaultValue={initialData?.repoUrl ?? ''} 
+                className="bg-zinc-800 border-zinc-700" 
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="backendRepoUrl">Backend Repo URL (Optional)</Label>
+              <Input 
+                id="backendRepoUrl" 
+                name="backendRepoUrl" 
+                defaultValue={initialData?.backendRepoUrl ?? ''} 
                 className="bg-zinc-800 border-zinc-700" 
               />
             </div>

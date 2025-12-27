@@ -14,7 +14,9 @@ export async function createProject(formData: FormData, imageUrl: string, imageU
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
     const liveDemoUrl = formData.get('liveDemoUrl') as string;
+    const adminDemoUrl = formData.get('adminDemoUrl') as string;
     const repoUrl = formData.get('repoUrl') as string;
+    const backendRepoUrl = formData.get('backendRepoUrl') as string;
     const techStackTags = (formData.get('techStackTags') as string).split(',').map(tag => tag.trim());
 
     await db.insert(projects).values({
@@ -24,7 +26,9 @@ export async function createProject(formData: FormData, imageUrl: string, imageU
         imageUrl2,
         imageUrl3,
         liveDemoUrl,
+        adminDemoUrl,
         repoUrl,
+        backendRepoUrl,
         techStackTags,
     });
 
@@ -36,7 +40,9 @@ export async function updateProject(id: number, formData: FormData, imageUrl?: s
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
     const liveDemoUrl = formData.get('liveDemoUrl') as string;
+    const adminDemoUrl = formData.get('adminDemoUrl') as string;
     const repoUrl = formData.get('repoUrl') as string;
+    const backendRepoUrl = formData.get('backendRepoUrl') as string;
     const techStackTags = (formData.get('techStackTags') as string).split(',').map(tag => tag.trim());
 
     await db.update(projects).set({
@@ -46,7 +52,9 @@ export async function updateProject(id: number, formData: FormData, imageUrl?: s
         ...(imageUrl2 && { imageUrl2 }),
         ...(imageUrl3 && { imageUrl3 }),
         liveDemoUrl,
+        adminDemoUrl,
         repoUrl,
+        backendRepoUrl,
         techStackTags,
     }).where(eq(projects.id, id));
 

@@ -34,7 +34,9 @@ export const projects = pgTable("projects", {
   imageUrl2: text("image_url_2"),
   imageUrl3: text("image_url_3"),
   liveDemoUrl: text("live_demo_url"),
+  adminDemoUrl: text("admin_demo_url"),
   repoUrl: text("repo_url"),
+  backendRepoUrl: text("backend_repo_url"),
   techStackTags: text("tech_stack_tags").array(),
   createdAt: timestamp("created_at").defaultNow(),
 });

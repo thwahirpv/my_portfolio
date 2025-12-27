@@ -62,17 +62,38 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
                     <div className="space-y-3">
                         {project.liveDemoUrl && (
                             <Link href={project.liveDemoUrl} target="_blank" className="block">
-                                <Button className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-sm font-medium rounded-full shadow-lg shadow-blue-900/30 transition-all hover:scale-105 active:scale-95">
+                                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-sm font-medium rounded-full shadow-lg shadow-blue-900/30 transition-all hover:scale-105 active:scale-95 cursor-pointer">
                                     <ExternalLink size={18} className="mr-2" />
-                                    Live Demo
+                                    Live Demo {
+                                        project.adminDemoUrl && "(User)"
+                                    }
                                 </Button>
                             </Link>
                         )}
+                        {project.adminDemoUrl && (
+                            <Link href={project.adminDemoUrl} target="_blank" className="block">
+                                <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-sm font-medium rounded-full shadow-lg shadow-indigo-900/30 transition-all hover:scale-105 active:scale-95 cursor-pointer">
+                                    <ExternalLink size={18} className="mr-2" />
+                                    Live Demo (Admin)
+                                </Button>
+                            </Link>
+                        )}
+                        
                         {project.repoUrl && (
                             <Link href={project.repoUrl} target="_blank" className="block">
-                                <Button variant="outline" className="w-full border-zinc-700 cursor-pointer text-white hover:bg-white hover:text-black text-sm font-medium rounded-full transition-all hover:scale-105 active:scale-95">
+                                <Button variant="outline" className="w-full border-zinc-700 text-white hover:bg-white hover:text-black text-sm font-medium rounded-full transition-all hover:scale-105 active:scale-95 cursor-pointer">
                                     <Github size={18} className="mr-2" />
-                                    Source Code
+                                    {
+                                        project.backendRepoUrl ? "Frontend Code" : "Source Code"
+                                    }
+                                </Button>
+                            </Link>
+                        )}
+                        {project.backendRepoUrl && (
+                            <Link href={project.backendRepoUrl} target="_blank" className="block">
+                                <Button variant="outline" className="w-full border-zinc-700 text-white hover:bg-white hover:text-black text-sm font-medium rounded-full transition-all hover:scale-105 active:scale-95 cursor-pointer">
+                                    <Github size={18} className="mr-2" />
+                                    Backend Code
                                 </Button>
                             </Link>
                         )}

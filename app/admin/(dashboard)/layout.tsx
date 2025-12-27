@@ -4,6 +4,8 @@ import { LayoutDashboard, FolderKanban, Wrench, UserCircle } from 'lucide-react'
 import { LogOutButton } from './_components/logout-button';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import { SidebarNav } from './_components/sidebar-nav';
+import { MobileSidebar } from './_components/mobile-sidebar';
 
 export default async function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
@@ -13,47 +15,22 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
 
   return (
     <div className="min-h-screen bg-black text-white flex">
-      {/* Sidebar */}
-      <aside className="w-64 border-r border-zinc-800 p-6 flex flex-col fixed h-full bg-black z-20">
-        <Link href="/admin/dashboard" className="block">
-          <div className="font-bold text-xl mb-8 tracking-tighter cursor-pointer hover:text-blue-500 transition-colors">Admin Panel</div>
-        </Link>
-        
-        <nav className="flex-1 space-y-2">
-          <Link href="/admin/dashboard">
-            <Button variant="ghost" className="w-full justify-start gap-2 hover:bg-zinc-900 hover:text-white cursor-pointer">
-              <LayoutDashboard size={18} />
-              Overview
-            </Button>
-          </Link>
-          <Link href="/admin/projects">
-            <Button variant="ghost" className="w-full justify-start gap-2 hover:bg-zinc-900 hover:text-white cursor-pointer">
-              <FolderKanban size={18} />
-              Projects
-            </Button>
-          </Link>
-          <Link href="/admin/skills">
-            <Button variant="ghost" className="w-full justify-start gap-2 hover:bg-zinc-900 hover:text-white cursor-pointer">
-              <Wrench size={18} />
-              Skills
-            </Button>
-          </Link>
-          <Link href="/admin/profile">
-            <Button variant="ghost" className="w-full justify-start gap-2 hover:bg-zinc-900 hover:text-white cursor-pointer">
-              <UserCircle size={18} />
-              Profile
-            </Button>
-          </Link>
-        </nav>
-
-        <div className="pt-6 border-t border-zinc-800">
-          <LogOutButton />
-        </div>
+      {/* Desktop Sidebar */}
+      <aside className="w-64 border-r border-zinc-800 hidden lg:flex flex-col fixed h-full bg-black z-20">
+        <SidebarNav />
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8 overflow-y-auto ml-64">
-        {children}
+      <main className="flex-1 lg:ml-64 min-h-screen flex flex-col">
+        {/* Mobile Header */}
+        <div className="lg:hidden h-16 border-b border-zinc-800 flex items-center px-4 bg-black sticky top-0 z-10">
+           <MobileSidebar />
+           <div className="ml-4 font-bold text-lg">Admin Panel</div>
+        </div>
+        
+        <div className="p-4 md:p-8 overflow-y-auto flex-1">
+           {children}
+        </div>
       </main>
     </div>
   );

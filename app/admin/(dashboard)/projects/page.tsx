@@ -12,7 +12,7 @@ export default async function AdminProjects() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
         <h1 className="text-3xl font-bold">Projects</h1>
         <Link href="/admin/projects/new">
           <Button className="bg-blue-600 hover:bg-blue-700 cursor-pointer">

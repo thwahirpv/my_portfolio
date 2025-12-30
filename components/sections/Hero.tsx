@@ -88,23 +88,12 @@ export default function Hero({ profile }: { profile: ProfileData | null }) {
           </p>
           
           <div className="flex flex-wrap gap-4 mb-12 justify-center">
-            {profile?.resumeUrl ? (
-              <Link 
-                href={`/api/download?url=${encodeURIComponent(profile.resumeUrl)}&filename=thwahirpv.${profile.resumeUrl.split('.').pop()}`}
-                target="_self"
-              >
+            <a href="/Resume4.pdf" download="thwahirpv.pdf">
                 <Button className="bg-blue-600 hover:bg-blue-700 text-sm font-medium cursor-pointer rounded-full shadow-lg shadow-blue-900/30 transition-all hover:scale-105 active:scale-95">
                   Download CV
                 </Button>
-              </Link>
-            ) : (
-              <Link href="#projects">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-sm font-medium cursor-pointer rounded-full shadow-lg shadow-blue-900/30 transition-all hover:scale-105 active:scale-95">
-                  View My Work
-                </Button>
-              </Link>
-            )
-          }
+            </a>
+
             <Link href="#contact">
               <Button variant="outline" className="border-zinc-800 text-sm font-medium cursor-pointer rounded-full hover:bg-white hover:text-black transition-all hover:scale-105 active:scale-95">
                 Contact Me
